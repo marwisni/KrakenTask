@@ -16,9 +16,9 @@ while flag:
     try:
         last = str(list(db.get('variables', 'value', 'name', 'last'))[0][0])
     except:
-        last = getenv('def_since')
+        last = getenv('starting_since')
         db.create_table('variables', 'name string UNIQUE, value string')
-        db.insert('variables', 'last', getenv('def_since'))
+        db.insert('variables', 'last', getenv('starting_since'))
 
     response = communicator.trade_request_builder(pairs[0], last).json()
     result = response['result']['XXBTZEUR']
