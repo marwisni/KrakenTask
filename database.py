@@ -21,6 +21,9 @@ class Database:
     def get(self, table, target, condition_key, condition_value):
         return self.cursor.execute(f"SELECT {target} FROM {table} WHERE {condition_key} = '{condition_value}'")
 
+    def get2(self, target, table, condition):
+        return self.cursor.execute(f"SELECT {target} FROM {table} WHERE {condition}")
+
     def update(self, table, target, target_value, condition_key, condition_value):
         self.cursor.execute(f"UPDATE {table} SET {target} = {target_value} WHERE {condition_key} = '{condition_value}'")
         self.connection.commit()
