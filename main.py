@@ -20,8 +20,8 @@ while flag:
         db.create_table('variables', 'name string UNIQUE, value string')
         db.insert('variables', 'last', getenv('starting_since'))
 
-    response = communicator.trade_request_builder(pairs[0], last).json()
-    result = response['result']['XXBTZEUR']
+    response = communicator.trade_request_builder(pairs[1], last).json()
+    result = response['result']['XETHZUSD']
     if len(result) < 1000:
         flag = False
     print(f"Number of rows: {len(result)}")
