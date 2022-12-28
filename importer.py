@@ -26,29 +26,29 @@ class Importer:
     def pair_import(self, pair):
         flag = True
         iteration = 1
+        if iteration == 1:
+            self.db.create_table('trades_' + pair, getenv('trade_columns').replace('\n', ''))
+            self.db.create_index('Time_' + pair, 'trades_' + pair, 'time ASC')
         while flag:
             print(f'This is {iteration} iteration for pair {pair}.')
             try:
-                last = str(list(self.db.get('variables', 'value', 'name', 'last_'+pair))[0][0])
+                last = self.db.get('value', 'variables', f"name = 'last_{pair}'")[0]
             except:
                 last = getenv('starting_since')
                 self.db.create_table('variables', 'name string UNIQUE, value string')
-                self.db.insert('variables', 'last_'+pair, getenv('starting_since'))
-
+                self.db.insert('variables', 'last_' + pair, getenv('starting_since'))
             response = self.communicator.trade_request_builder(pair, last).json()
             if iteration == 1:
                 key = list(response['result'].keys())[0]
-            print(f"Key: {key}")
+                print(f"Key: {key}")
             result = response['result'][key]
             if len(result) < 1000:
                 flag = False
             print(f"Number of rows: {len(result)}")
             print('last: ' + str(last))
-            self.db.create_table('trades_'+pair, getenv('trade_columns').replace('\n', ''))
-
             start = default_timer()
             duplicates = self.request_import(result, pair)
-            self.db.update('variables', 'value', response['result']['last'], 'name', 'last_'+pair)
+            self.db.update('variables', f"value = {response['result']['last']}", f"name = 'last_{pair}'")
             end = default_timer()
             print('Last iteration:')
             print(f'Imported rows: {len(result) - duplicates}')
