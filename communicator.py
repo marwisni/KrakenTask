@@ -4,6 +4,7 @@ import requests
 class Communicator:
 
     def __init__(self, uri):
+        self.data_type = None
         self.version = None
         self.api_type = None
         self.uri = uri
