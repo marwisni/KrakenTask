@@ -13,7 +13,10 @@
     
 ## Changelog ➡
 
-- 2022/12/24 - initial commit    
+- 2022/12/24 - initial commit
+- 2022/12/31:
+  - working solution for separate tables for each pair
+  - added docstrings
 
 ## Introduction - the project's aim 🎯
 
@@ -36,6 +39,9 @@ In our project we are using following technologies and tools:
 
 ## Release Versions 🔨
 
-Currently working on v0.1 version.
+Currently working on version which uses separate database tables for each pair. It is in consideration to implement version which will use one table for all pairs. 
 
 ## Launch 🚀
+
+Simply run main.py file from main branch to run the latest version or
+* main.py file from separate/main branch if you want to run fully working solution which is using separate database's tables for each currency pair
